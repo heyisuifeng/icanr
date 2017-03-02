@@ -1,11 +1,12 @@
 package com.kmak.controller;
 
-import com.sun.net.httpserver.HttpServer;
-import org.springframework.http.HttpRequest;
+import com.kmak.pojo.User;
+import com.kmak.service.LoginService;
+import com.kmak.serviceImpl.LoginServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class HomeController {
+
+    @Autowired
+    LoginService loginService;
+
     @RequestMapping("/index")
     public String index(){
         return "index";
@@ -20,7 +25,11 @@ public class HomeController {
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request){
-        String url = request.getRequestURI();
+        User user = new User();
+        user.setName(request.getParameter("name"));
+        boolean flag = loginService.login(user);
+        if(!flag)
+            return "error";
         return "login";
     }
 }
