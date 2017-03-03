@@ -1,5 +1,6 @@
 package com.kmak;
 
+import com.kmak.DBUtils.JDBCAccess;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -42,4 +43,10 @@ public abstract class DBConfig {
     /**
      * JDBC访问接口
      */
+    @Bean
+    public JDBCAccess jdbcAccess(){
+        JDBCAccess jdbcAccess = new JDBCAccess();
+        jdbcAccess.setJdbcTemplate(jdbcTemplate());
+        return jdbcAccess;
+    }
 }

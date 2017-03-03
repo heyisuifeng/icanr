@@ -23,7 +23,15 @@ public class JDBCAccess {
 
     private JdbcTemplate jdbcTemplate;
 
-    public <T> List<T> find(String sql,RowMapper<T> rowMapper,Object... params){
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public <T> List<T> find(String sql, RowMapper<T> rowMapper, Object... params){
         StopWatch watch = new StopWatch();
         try {
             return jdbcTemplate.query(sql,params,rowMapper);
@@ -61,6 +69,42 @@ public class JDBCAccess {
             });
         }finally {
             logger.debug("findString,sql={},params={},elapsedTime={}",new Object[]{sql,params,watch.getTotalTimeMillis()});
+        }
+    }
+
+    public int insert(String sql,Object... params){
+        StopWatch watch = new StopWatch();
+        try {
+            return jdbcTemplate.update(sql,params);
+        }finally {
+            logger.debug("insert,sql={},params={},elapsedTime={}",new Object[]{sql,params,watch.getTotalTimeMillis()});
+        }
+    }
+
+    public int update(String sql,Object... params){
+        StopWatch watch = new StopWatch();
+        try {
+            return jdbcTemplate.update(sql,params);
+        }finally {
+            logger.debug("update,sql={},params={},elapsedTime={}",new Object[]{sql,params,watch.getTotalTimeMillis()});
+        }
+    }
+
+    public int delete(String sql,Object... params){
+        StopWatch watch = new StopWatch();
+        try {
+            return jdbcTemplate.update(sql,params);
+        }finally {
+            logger.debug("delete,sql={},params={},elapsedTime={}",new Object[]{sql,params,watch.getTotalTimeMillis()});
+        }
+    }
+
+    public int[] batchExecute(String sql,List<Object[]> params){
+        StopWatch watch = new StopWatch();
+        try {
+            return jdbcTemplate.batchUpdate(sql,params);
+        }finally {
+            logger.debug("batchExecute,sql={},params={},elapsedTime={}",new Object[]{sql,params,watch.getTotalTimeMillis()});
         }
     }
 }
