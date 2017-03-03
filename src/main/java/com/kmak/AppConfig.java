@@ -21,6 +21,7 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan("com.kmak")
 public class AppConfig {
+
     @Bean
     public InternalResourceViewResolver resourceViewResolver() throws PropertyVetoException {
         InternalResourceViewResolver resourceViewResolver = new InternalResourceViewResolver();
