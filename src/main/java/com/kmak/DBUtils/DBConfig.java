@@ -1,4 +1,4 @@
-package com.kmak;
+package com.kmak.DBUtils;
 
 import com.kmak.DBUtils.JDBCAccess;
 import org.springframework.context.annotation.Bean;

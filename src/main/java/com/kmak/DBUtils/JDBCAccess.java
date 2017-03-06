@@ -3,11 +3,13 @@ package com.kmak.DBUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -105,6 +107,15 @@ public class JDBCAccess {
             return jdbcTemplate.batchUpdate(sql,params);
         }finally {
             logger.debug("batchExecute,sql={},params={},elapsedTime={}",new Object[]{sql,params,watch.getTotalTimeMillis()});
+        }
+    }
+
+    public List<Map<String, Object>> queryForList(String sql){
+        StopWatch watch = new StopWatch();
+        try {
+            return jdbcTemplate.queryForList(sql);
+        }finally {
+            logger.debug("queryForList,sql={},elapsedTime={}",new Object[]{sql,watch.getTotalTimeMillis()});
         }
     }
 }

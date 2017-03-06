@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by 1 on 2017/3/1.
+ * Created by Leaf.Ye on 2017/3/1.
  */
 @Controller
 public class HomeController {
@@ -27,6 +27,7 @@ public class HomeController {
     public String login(HttpServletRequest request){
         User user = new User();
         user.setName(request.getParameter("name"));
+        user.setPassword(request.getParameter("password"));
         boolean flag = loginService.login(user);
         if(!flag)
             return "error";
