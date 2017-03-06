@@ -8,6 +8,7 @@ import com.kmak.pojo.User;
 import org.apache.taglibs.standard.tag.common.sql.DataSourceWrapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.inject.Inject;
@@ -32,6 +33,7 @@ public class UserRepositoryImpl implements UserRepository{
         return true;
     }
 
+    @Transactional
     public void addUser(User user) {
 
     }
