@@ -1,8 +1,7 @@
 package com.kmak.controller;
 
-import com.kmak.pojo.User;
+import com.kmak.entity.business.User;
 import com.kmak.service.LoginService;
-import com.kmak.serviceImpl.LoginServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

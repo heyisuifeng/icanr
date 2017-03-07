@@ -1,4 +1,4 @@
-package com.kmak.pojo.config;
+package com.kmak.entity.config;
 
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;

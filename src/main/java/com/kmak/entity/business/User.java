@@ -1,4 +1,4 @@
-package com.kmak.pojo;
+package com.kmak.entity.business;
 
 import javax.persistence.Entity;
 

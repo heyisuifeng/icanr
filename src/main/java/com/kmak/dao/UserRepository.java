@@ -1,6 +1,6 @@
 package com.kmak.dao;
 
-import com.kmak.pojo.User;
+import com.kmak.entity.business.User;
 
 /**
  * Created by 1 on 2017/3/2.

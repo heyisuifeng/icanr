@@ -1,7 +1,7 @@
 package com.kmak.serviceImpl;
 
 import com.kmak.dao.UserRepository;
-import com.kmak.pojo.User;
+import com.kmak.entity.business.User;
 import com.kmak.service.LoginService;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,6 @@
 package com.kmak.service;
 
-import com.kmak.pojo.User;
-import org.springframework.stereotype.Service;
+import com.kmak.entity.business.User;
 
 /**
  * Created by 1 on 2017/3/2.

@@ -2,6 +2,7 @@ package com.kmak.DBUtils;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
  * 数据源配置类
  * 继承DBConfig类，实现父类的dataSource()方法
  */
+@Component
 public class DataSourceDBConfig extends DBConfig{
 
     @Bean
