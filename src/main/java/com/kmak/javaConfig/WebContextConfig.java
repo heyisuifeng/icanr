@@ -1,6 +1,7 @@
 package com.kmak.javaConfig;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -25,8 +26,8 @@ public class WebContextConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/statics/**")
-                .addResourceLocations("/statics/")
+        registry.addResourceHandler("/assets/**")
+                .addResourceLocations("/assets/")
                 .setCachePeriod(31556926);
     }
 
