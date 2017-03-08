@@ -8,7 +8,9 @@ import com.kmak.entity.requestEntity.TestTransactionalEntity;
  */
 public interface UserService {
 
-    public void addUser(User user);
+    public void addUser(User user) throws Exception;
 
     public void addUserAndRole(TestTransactionalEntity entity);
+
+    public void deleteUserById(int id) throws Exception;
 }

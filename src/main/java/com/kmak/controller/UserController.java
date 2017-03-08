@@ -5,6 +5,7 @@ import com.kmak.entity.business.User;
 import com.kmak.entity.requestEntity.TestTransactionalEntity;
 import com.kmak.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.inject.Inject;
@@ -21,15 +22,11 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/addUser")
-    public String addUser(){
-        try {
+    public String addUser()throws Exception{
             User user = new User();
             user.setName("adduser");
             user.setPassword("adduser");
             userService.addUser(user);
-        }catch (Exception e){
-            return "error";
-        }
         return "success";
     }
 
@@ -52,6 +49,12 @@ public class UserController {
             entity.setRoles(roles);
             userService.addUserAndRole(entity);
 
+        return "success";
+    }
+
+    @RequestMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable int id)throws Exception{
+        userService.deleteUserById(id);
         return "success";
     }
 }

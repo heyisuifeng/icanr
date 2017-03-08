@@ -32,4 +32,8 @@ public class UserRepositoryImpl implements UserRepository {
         JDBCAccess jdbcAccess = dataSourceDBConfig.jdbcAccess();
         jdbcAccess.insert("insert into t_user (username,password) value (?,?)",new Object[]{user.getName(),user.getPassword()});
     }
+
+    public void deleteUserById(int id) {
+        int deleteId = dataSourceDBConfig.jdbcAccess().update("delete from t_user where id = ?",new Object[]{id});
+    }
 }

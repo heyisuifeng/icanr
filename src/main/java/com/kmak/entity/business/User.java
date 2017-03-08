@@ -1,7 +1,5 @@
 package com.kmak.entity.business;
 
-import javax.persistence.Entity;
-
 /**
  * Created by 1 on 2017/3/2.
  */
