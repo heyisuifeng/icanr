@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 @ComponentScan(basePackages = {"com.kmak"},
         useDefaultFilters = false,
         excludeFilters = @ComponentScan.Filter(Controller.class))
-/*@ComponentScan(basePackages = {"com.kmak.*"})*/
 @Import({DataSourceDBConfig.class})//@Import，引入指定的配置类，我们引入了Spring容器配置类和数据源事务配置类
 public class AppConfig{
 }
