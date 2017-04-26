@@ -40,6 +40,7 @@ public class KmakInitializer implements WebApplicationInitializer{
         rootContext.register(AppConfig.class);
         container.addListener(new ContextLoaderListener(rootContext));
 
+
         //基于注解配置的web容器上下文
         //对应web.xml文件如下配置
         /**

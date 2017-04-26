@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     public void addUserAndRole(TestTransactionalEntity entity) {
-        userRepository.addUser(entity.getUsers().get(0));
         roleRepository.addRole(entity.getRoles().get(0));
+        userRepository.addUser(entity.getUsers().get(0));
     }
 
     @Transactional

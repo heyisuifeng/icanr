@@ -24,9 +24,12 @@ import java.beans.PropertyVetoException;
  */
 @Configuration
 @EnableWebMvc
-@EnableTransactionManagement
-@ComponentScan(basePackages = {"com.kmak"},
+/*@ComponentScan(basePackages = {"com.kmak.*"},
         useDefaultFilters = false,
+        includeFilters = @ComponentScan.Filter(Controller.class),
+        excludeFilters = @ComponentScan.Filter(Service.class))*/
+@ComponentScan(basePackages = {"com.kmak.*"},
+        useDefaultFilters = false,//配置此项只扫描controller，而service和repository都不扫描
         includeFilters = @ComponentScan.Filter(Controller.class),
         excludeFilters = @ComponentScan.Filter(Service.class))
 public class WebConfig extends WebMvcConfigurerAdapter{

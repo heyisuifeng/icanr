@@ -23,32 +23,30 @@ public class UserController {
 
     @RequestMapping("/addUser")
     public String addUser()throws Exception{
-            User user = new User();
-            user.setName("adduser");
-            user.setPassword("adduser");
-            userService.addUser(user);
+        User user = new User();
+        user.setName("adduser");
+        user.setPassword("adduser");
+        userService.addUser(user);
         return "success";
     }
 
     @RequestMapping("/testTran")
     public String testTran(){
-
-            TestTransactionalEntity entity = new TestTransactionalEntity();
-            List<User> users = new ArrayList<User>();
-            User user = new User();
-            user.setName("adduser");
-            user.setPassword("adduser");
-            users.add(user);
-            entity.setUsers(users);
-            List<Role> roles = new ArrayList<Role>();
-            Role role = new Role();
-            //role.setId(1);
-            role.setRoleName("testTran");
-            role.setDescription("test");
-            roles.add(role);
-            entity.setRoles(roles);
-            userService.addUserAndRole(entity);
-
+        TestTransactionalEntity entity = new TestTransactionalEntity();
+        List<User> users = new ArrayList<User>();
+        User user = new User();
+        user.setName("adduser");
+        user.setPassword("adduser");
+        users.add(user);
+        entity.setUsers(users);
+        List<Role> roles = new ArrayList<Role>();
+        Role role = new Role();
+        //role.setId(1);
+        role.setRoleName("testTran");
+        role.setDescription("test");
+        roles.add(role);
+        entity.setRoles(roles);
+        userService.addUserAndRole(entity);
         return "success";
     }
 

@@ -20,7 +20,7 @@ public class DataSourceDBConfig extends DBConfig{
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/icanr_test?useUnicode\\=true;characterEncoding\\=utf8;autoReconnect\\=true");
         dataSource.setUsername("root");
-        dataSource.setPassword("p@ssw0rd");
+        dataSource.setPassword("root");
         dataSource.setInitialSize(5);
         dataSource.setMaxActive(10);
         return dataSource;
