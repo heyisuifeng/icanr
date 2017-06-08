@@ -1,9 +1,13 @@
 package com.kmak.controller;
 
+import com.kmak.entity.Book;
 import com.kmak.entity.business.User;
 import com.kmak.service.LoginService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -31,5 +35,13 @@ public class HomeController {
         if(!flag)
             return "error";
         return "login";
+    }
+
+    @RequestMapping(value = "/sendxml")
+    @ResponseBody
+    public void getxmlparam(@RequestBody Book book){
+        System.out.print(book.getId());
+        Book book1 = new Book();
+        BeanUtils.copyProperties(book,book1);
     }
 }
