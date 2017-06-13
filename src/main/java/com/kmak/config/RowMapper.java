@@ -1,4 +1,4 @@
-package com.kmak.DBUtils;
+package com.kmak.config;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 

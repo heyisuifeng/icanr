@@ -1,12 +1,9 @@
-package com.kmak.DBUtils;
+package com.kmak.config;
 
-import com.kmak.DBUtils.JDBCAccess;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.jta.JtaTransactionManager;
 
 import javax.sql.DataSource;
 

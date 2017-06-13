@@ -12,5 +12,5 @@ public interface UserService {
 
     public void addUserAndRole(TestTransactionalEntity entity);
 
-    public void deleteUserById(int id) throws Exception;
+    public void deleteUserById(int id);
 }

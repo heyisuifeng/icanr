@@ -1,5 +1,6 @@
 package com.kmak;
 
+import com.kmak.config.AppConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -8,7 +9,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.*;
 import java.util.EnumSet;
-import java.util.Map;
 
 /**
  * Created by Leaf.Ye on 2017/3/6.
@@ -16,7 +16,7 @@ import java.util.Map;
  * 用于代替web.xml的web容器配置类
  * 在这里配置过滤器、监听器、Servlet
  */
-public class KmakInitializer implements WebApplicationInitializer{
+public class MyServletInitializer implements WebApplicationInitializer{
     public void onStartup(ServletContext container) throws ServletException {
         //配置spring提供的字符编码过滤器
         FilterRegistration.Dynamic filter = container.addFilter("encoding",new CharacterEncodingFilter());
@@ -32,7 +32,7 @@ public class KmakInitializer implements WebApplicationInitializer{
          *</context-param>
          *
          *<listener>
-         *<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+         *<listener-class>org.springframework.config.context.ContextLoaderListener</listener-class>
          *</listener>
          */
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
@@ -46,7 +46,7 @@ public class KmakInitializer implements WebApplicationInitializer{
         /**
          *<servlet>
          *<servlet-name>spring</servlet-name>
-         *<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+         *<servlet-class>org.springframework.config.servlet.DispatcherServlet</servlet-class>
          *<init-param>
          *<param-name>contextConfigLocation</param-name>
          *<param-value>classpath:spring-servlet.xml</param-value>

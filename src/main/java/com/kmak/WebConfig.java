@@ -18,20 +18,17 @@ import java.beans.PropertyVetoException;
  * 对应原本的xxx-servlet.xml文件
  * web容器上下文配置(也称web子容器)
  * 该类用于配置原本配置在xxx-servlet.xml中的信息
- * 继承org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter抽象类，
+ * 继承org.springframework.config.servlet.config.annotation.WebMvcConfigurerAdapter抽象类，
  * 通过重写其void addResourceHandlers(ResourceHandlerRegistry registry)方法实现静态资源过滤，
  * 重写void addInterceptors(InterceptorRegistry registry)方法来配置我们的监听器
  */
 @Configuration
 @EnableWebMvc
 /*@ComponentScan(basePackages = {"com.kmak.*"},
-        useDefaultFilters = false,
-        includeFilters = @ComponentScan.Filter(Controller.class),
-        excludeFilters = @ComponentScan.Filter(Service.class))*/
-@ComponentScan(basePackages = {"com.kmak.*"},
         useDefaultFilters = false,//配置此项只扫描controller，而service和repository都不扫描
         includeFilters = @ComponentScan.Filter(Controller.class),
-        excludeFilters = @ComponentScan.Filter(Service.class))
+        excludeFilters = @ComponentScan.Filter(Service.class))*/
+@ComponentScan(basePackages = {"com.kmak.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter{
 
     /**
@@ -60,10 +57,10 @@ public class WebConfig extends WebMvcConfigurerAdapter{
      * 静态资源过滤
      * @param registry
      */
-   /* @Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/assets*//**")
-     .addResourceLocations("/assets/")
+        registry.addResourceHandler("/assets*")
+     .addResourceLocations("/assets/","classpath:/assets/")
      .setCachePeriod(31556926);
-     }*/
+     }
 }

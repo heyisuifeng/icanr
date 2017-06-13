@@ -1,4 +1,4 @@
-package com.kmak.DBUtils;
+package com.kmak.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;

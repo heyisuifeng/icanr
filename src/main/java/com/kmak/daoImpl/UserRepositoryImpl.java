@@ -1,7 +1,7 @@
 package com.kmak.daoImpl;
 
-import com.kmak.DBUtils.DataSourceDBConfig;
-import com.kmak.DBUtils.JDBCAccess;
+import com.kmak.config.DataSourceDBConfig;
+import com.kmak.config.JDBCAccess;
 import com.kmak.dao.UserRepository;
 import com.kmak.entity.business.User;
 import org.springframework.stereotype.Repository;

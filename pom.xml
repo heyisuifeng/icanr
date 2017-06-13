@@ -70,7 +70,7 @@
       <version>4.2.5.RELEASE</version>
     </dependency>
 
-    <!--<dependency>
+    <dependency>
       <groupId>aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>1.5.4</version>
@@ -86,7 +86,7 @@
       <groupId>aopalliance</groupId>
       <artifactId>aopalliance</artifactId>
       <version>1.0</version>
-    </dependency>-->
+    </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>

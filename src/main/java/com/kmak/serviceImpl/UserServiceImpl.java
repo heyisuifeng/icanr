@@ -8,6 +8,7 @@ import com.kmak.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.inject.Inject;
 
@@ -22,13 +23,14 @@ public class UserServiceImpl implements UserService{
     @Inject
     private RoleRepository roleRepository;
 
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
+    @Transactional
     public void addUser(User user) throws Exception{
         try {
             userRepository.addUser(user);
             User user1 = null;
             userRepository.addUser(user1);
         }catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new RuntimeException("运行时异常");
         }
     }
@@ -40,8 +42,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Transactional
-    public void deleteUserById(int id) throws Exception{
+    public void deleteUserById(int id) {
         userRepository.deleteUserById(id);
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         throw new RuntimeException("运行时异常");
     }
 }
