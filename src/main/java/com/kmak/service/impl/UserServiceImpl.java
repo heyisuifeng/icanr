@@ -1,4 +1,4 @@
-package com.kmak.serviceImpl;
+package com.kmak.service.impl;
 
 import com.kmak.dao.RoleRepository;
 import com.kmak.dao.UserRepository;
@@ -6,7 +6,6 @@ import com.kmak.entity.business.User;
 import com.kmak.entity.requestEntity.TestTransactionalEntity;
 import com.kmak.service.UserService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -30,7 +29,6 @@ public class UserServiceImpl implements UserService{
             User user1 = null;
             userRepository.addUser(user1);
         }catch (Exception e){
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new RuntimeException("运行时异常");
         }
     }
@@ -44,7 +42,6 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public void deleteUserById(int id) {
         userRepository.deleteUserById(id);
-        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         throw new RuntimeException("运行时异常");
     }
 }

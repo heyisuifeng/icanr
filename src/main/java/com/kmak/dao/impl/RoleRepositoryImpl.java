@@ -1,4 +1,4 @@
-package com.kmak.daoImpl;
+package com.kmak.dao.impl;
 
 import com.kmak.config.DataSourceDBConfig;
 import com.kmak.config.JDBCAccess;

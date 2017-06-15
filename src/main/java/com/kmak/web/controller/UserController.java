@@ -1,4 +1,4 @@
-package com.kmak.controller;
+package com.kmak.web.controller;
 
 import com.kmak.entity.business.Role;
 import com.kmak.entity.business.User;
