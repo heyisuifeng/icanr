@@ -13,6 +13,74 @@ import java.util.Date;
 @Slf4j
 public class DateTimeUtils {
 
+    //由出生日期获得年龄  n岁
+    public static int getAge(Date birthDay) throws Exception {
+        Calendar cal = Calendar.getInstance();
+
+        if (cal.before(birthDay)) {
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);
+        int monthNow = cal.get(Calendar.MONTH);
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(birthDay);
+
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+        int age = yearNow - yearBirth;
+
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                if (dayOfMonthNow < dayOfMonthBirth) age--;
+            }else{
+                age--;
+            }
+        }
+        return age;
+    }
+
+    //由出生日期获得年龄  n岁n月
+    public static String getAgeDesc(Date birthDay) throws Exception {
+        Calendar cal = Calendar.getInstance();
+
+        if (cal.before(birthDay)) {
+            throw new IllegalArgumentException(
+                    "The birthDay is before Now.It's unbelievable!");
+        }
+        int yearNow = cal.get(Calendar.YEAR);
+        int monthNow = cal.get(Calendar.MONTH);
+        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+        cal.setTime(birthDay);
+
+        int yearBirth = cal.get(Calendar.YEAR);
+        int monthBirth = cal.get(Calendar.MONTH);
+        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+
+        int age = yearNow - yearBirth;
+        int month = 0;
+        if (monthNow <= monthBirth) {
+            if (monthNow == monthBirth) {
+                month = 0;
+                if (dayOfMonthNow < dayOfMonthBirth) {
+                    age--;
+                    month = 11;
+                }
+            }else{
+                month = 12+monthNow-monthBirth;
+                age--;
+            }
+        }else {
+            month = monthNow - monthBirth;
+            if (dayOfMonthNow < dayOfMonthBirth) {
+                month--;
+            }
+        }
+        return age+"岁"+month+"月";
+    }
+
     /**
      * 将日期对象按照格式转成字符串
      * @param date 日期对象
@@ -111,7 +179,7 @@ public class DateTimeUtils {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             Date dateOne = fmt.parse(date1);
             Date dateTwo = fmt.parse(date2);
-            day = (dateOne.getTime() - dateTwo.getTime())/(24*60*60*1000);
+            day = (dateTwo.getTime()- dateOne.getTime())/(24*60*60*1000);
         }catch (Exception e){
             log.error("时间比较错误");
             throw new IllegalArgumentException("时间比较错误，错误信息"+e.getLocalizedMessage());
@@ -120,21 +188,95 @@ public class DateTimeUtils {
     }
 
     /**
-     * 得到本周最后一天(以星期日为最后一天)
-     * @param nowDate
+     * 获取传入时间对应周的第一天(以星期一为第一天)
+     * @param date
      * @return
      */
-    public static final Date getWeekLastDaySun(Date nowDate){
-        SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        String nowDateString = myFormatter.format(nowDate);
+    public static Date getWeekFirstDayMon(Date date){
+        if (date == null){
+            log.error("参数为空错误");
+            throw new IllegalArgumentException("获取本周第一天失败，参数为空");
+        }
+        //去掉时分秒
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = fmt.format(date);
         try {
-            nowDate = myFormatter.parse(nowDateString);
+            date = fmt.parse(dateString);
+        }catch (Exception e){
+            log.error("字符串转日期异常！ " + e.getMessage());
+            throw new IllegalArgumentException("字符串转日期参数错误！");
+        }
+        //用参数初始化日历
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int d = 0;
+        //cal.get(Calendar.DAY_OF_WEEK)获取到的是参数nowDate在对应周的序号，
+        // 默认是以周日为第一天的(即cal.get(Calendar.DAY_OF_WEEK)=1)
+        if (cal.get(Calendar.DAY_OF_WEEK) == 1){
+            d = -6;
+        }else {
+            d = 2 - cal.get(Calendar.DAY_OF_WEEK);
+        }
+        cal.add(Calendar.DAY_OF_WEEK, d);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取传入时间对应周的第一天(以星期日为第一天)
+     * @param date
+     * @return
+     */
+    public static Date getWeekFirstDaySun(Date date){
+        if (date == null){
+            log.error("参数为空错误");
+            throw new IllegalArgumentException("获取本周第一天失败，参数为空");
+        }
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = fmt.format(date);
+        try {
+            date = fmt.parse(dateString);
+        }catch (Exception e){
+            log.error("字符串转日期异常！ " + e.getMessage());
+            throw new IllegalArgumentException("字符串转日期参数错误！");
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int d = 1 - cal.get(Calendar.DAY_OF_WEEK);
+
+        cal.add(Calendar.DAY_OF_WEEK,d);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取传入时间对应周的第一天(以星期一为第一天),并返回字符串的形式
+     * @param date
+     * @return
+     */
+    public static String getWeekFirstDayMonString(Date date){
+        date = getWeekFirstDayMon(date);
+        return date2String(date,"yyyy-MM-dd");
+    }
+
+    /**
+     * 获取传入时间对应周的最后一天(以星期日为最后一天)
+     * @param date
+     * @return
+     */
+    public static Date getWeekLastDaySun(Date date){
+        if (date == null){
+            log.error("参数为空错误");
+            throw new IllegalArgumentException("获取本周最后一天失败，参数为空");
+        }
+        SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String nowDateString = myFormatter.format(date);
+        try {
+            date = myFormatter.parse(nowDateString);
         } catch (Exception e) {
             log.error("字符串转日期异常！ " + e.getMessage());
             throw new IllegalArgumentException("字符串转日期参数错误！");
         }
         Calendar cal = Calendar.getInstance();
-        cal.setTime(nowDate);
+        cal.setTime(date);
 
         int d = 0;
         //calendar以星期日为第一天，所以如果等于1
@@ -143,29 +285,67 @@ public class DateTimeUtils {
         }else{
             d = 2-cal.get(Calendar.DAY_OF_WEEK);
         }
+        //得到周一
         cal.add(Calendar.DAY_OF_WEEK,d);
-        //所在周结束日期
+        //在周一基础上加6天，得到周日
         cal.add(Calendar.DAY_OF_WEEK, 6);
         return cal.getTime();
     }
 
-    public static final String getWeekLastDaySunString(Date nowDate){
-        nowDate = getWeekLastDaySun(nowDate);
-        return date2String(nowDate,"yyyy-MM-dd");
-    }
     /**
-     * 判断当前日期是星期几
-     * @param dt
+     * 获取传入时间对应周的最后一天(以星期六为最后一天)
+     * @param date
      * @return
      */
-    public static int getWeekOfDate(Date dt) {
-        int[] weekDays = {7, 1, 2, 3, 4, 5, 6};
+    public static Date getWeekLastDaySat(Date date){
+        if (date == null){
+            log.error("参数为空错误");
+            throw new IllegalArgumentException("获取本周最后一天失败，参数为空");
+        }
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = fmt.format(date);
+        try {
+            date = fmt.parse(dateString);
+        } catch (Exception e) {
+            log.error("字符串转日期异常！ " + e.getMessage());
+            throw new IllegalArgumentException("字符串转日期参数错误！");
+        }
         Calendar cal = Calendar.getInstance();
-        cal.setTime(dt);
+        cal.setTime(date);
+
+        int d = 1-cal.get(Calendar.DAY_OF_WEEK);
+
+        //得到周日
+        cal.add(Calendar.DAY_OF_WEEK,d);
+        //在周日基础上加6天，得到周六
+        cal.add(Calendar.DAY_OF_WEEK, 6);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取传入时间对应周的最后一天(以星期日为最后一天),并以字符串的形式返回
+     * @param date
+     * @return
+     */
+    public static String getWeekLastDaySunString(Date date){
+        date = getWeekLastDaySun(date);
+        return date2String(date,"yyyy-MM-dd");
+    }
+
+    /**
+     * 判断当前日期是星期几
+     * @param date
+     * @return
+     */
+    public static int getWeekOfDate(Date date){
+        int [] weeks = {7,1,2,3,4,5,6};
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0)
+        if (w < 0){
             w = 0;
-        return weekDays[w];
+        }
+        return weeks[w];
     }
 
     /**

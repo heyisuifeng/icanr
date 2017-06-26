@@ -80,68 +80,6 @@ public class CommonUtils {
         }
         return sb.toString();
     }
-	
-	/**
-     * 将日期对象按照格式转成字符串
-     *
-     * @param date   日期对象
-     * @param format 日期格式
-     * @return 字符串
-     */
-    public static String date2String(Date date, String format) {
-        if (date == null) {
-            log.error("日期转字符串参数错误！");
-            throw new IllegalArgumentException("日期不能为空！");
-        }
-        if (format == null) {
-            format = "yyyy-MM-dd HH:mm:ss";
-        }
-        String result = null;
-        try {
-            DateFormat fmt = new SimpleDateFormat(format);
-            result = fmt.format(date);
-        } catch (Exception e) {
-            log.error("日期转字符串异常！ " + e.getMessage());
-        }
-        return result;
-    }
-    
-    /**
-     * 将字符串转成日期对象
-     *
-     * @param date   日期字符串
-     * @param format 日期格式
-     * @return 日期对象
-     */
-    public static Date string2Date(String date, String format) {
-        if (date == null) {
-            log.error("字符串转日期参数错误！");
-            throw new IllegalArgumentException("字符串转日期参数错误！");
-        }
-        if (format == null) {
-            format = "yyyy-MM-dd HH:mm:ss";
-        }
-        Date result = null;
-        try {
-            DateFormat fmt = new SimpleDateFormat(format);
-            result = fmt.parse(date);
-        } catch (Exception e) {
-            log.error("字符串转日期异常！ " + e.getMessage());
-            throw new IllegalArgumentException("字符串转日期参数错误！");
-        }
-        return result;
-    }
-    
-    public static long javaTimestamp(long time) {
-        if (time <= 0) {
-            log.error("javaTimestamp meet null argument.");
-            throw new IllegalArgumentException("argument is null.");
-        }
-        //mysql 时间戳只有10位，只精确到秒，而Java时间戳精确到毫秒，故要做处理
-        String dateline = String.valueOf(time);
-        dateline = dateline.substring(0, 10);
-        return Long.parseLong(dateline);
-    }
     
     /**
      * 裁剪图片
@@ -191,125 +129,23 @@ public class CommonUtils {
         }
     }
     
-    /**
-     * 判断当前时间是否在指定的有效期内
-     *
-     * @param beginDate 开始时间
-     * @param endDate   结束时间
-     * @return true : false
-     */
-    public static boolean isInPeriod(Date beginDate, Date endDate) {
-        Date now = new Date();
-
-        if (beginDate == null || endDate == null) {
-            log.error("isInPeriod meet null argument.");
-            throw new IllegalArgumentException("isInPeriod meet null argument.");
-        }
-
-        if (beginDate.before(endDate) == false) {
-            log.error("isInPeriod meet invalid date argument.");
-            throw new IllegalArgumentException("isInPeriod meet invalid date argument.");
-        }
-
-        if (now.after(beginDate) && now.before(endDate)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
     public static BigDecimal str2BigDecimal(String str) {
     	if(str == null || "".equals(str.trim()) || "null".equals(str)) {
     		return new BigDecimal(0);
     	}
     	return new BigDecimal(str);
     }
-    
-    public static long getDays(String date1, String date2) {
-        if (date1 == null || date1.equals(""))    
-         return 0;    
-        if (date2 == null || date2.equals(""))    
-         return 0;    
-        // 转换为标准时间    
-        SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        Date mydate = null;
-        try {    
-         date = myFormatter.parse(date1);    
-         mydate = myFormatter.parse(date2);    
-        } catch (Exception e) {
-        }    
-        long day = (date.getTime() - mydate.getTime()) / (24 * 60 * 60 * 1000);  
-        return day;    
-    }    
-    
-    //由出生日期获得年龄  n岁
-    public static int getAge(Date birthDay) throws Exception {
-        Calendar cal = Calendar.getInstance();
-  
-        if (cal.before(birthDay)) {  
-            throw new IllegalArgumentException(
-                    "The birthDay is before Now.It's unbelievable!");  
-        }  
-        int yearNow = cal.get(Calendar.YEAR);
-        int monthNow = cal.get(Calendar.MONTH);
-        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
-        cal.setTime(birthDay);  
-  
-        int yearBirth = cal.get(Calendar.YEAR);
-        int monthBirth = cal.get(Calendar.MONTH);
-        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
-  
-        int age = yearNow - yearBirth;  
-  
-        if (monthNow <= monthBirth) {  
-            if (monthNow == monthBirth) {  
-                if (dayOfMonthNow < dayOfMonthBirth) age--;  
-            }else{  
-                age--;  
-            }  
-        }  
-        return age;  
-    }  
-    
-    //由出生日期获得年龄  n岁n月
-    public static String getAgeDesc(Date birthDay) throws Exception {
-        Calendar cal = Calendar.getInstance();
-  
-        if (cal.before(birthDay)) {  
-            throw new IllegalArgumentException(
-                    "The birthDay is before Now.It's unbelievable!");  
-        }  
-        int yearNow = cal.get(Calendar.YEAR);
-        int monthNow = cal.get(Calendar.MONTH);
-        int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
-        cal.setTime(birthDay);  
-  
-        int yearBirth = cal.get(Calendar.YEAR);
-        int monthBirth = cal.get(Calendar.MONTH);
-        int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
-  
-        int age = yearNow - yearBirth;  
-        int month = 0;
-        if (monthNow <= monthBirth) {
-            if (monthNow == monthBirth) {  
-            	month = 0;
-                if (dayOfMonthNow < dayOfMonthBirth) {
-                	age--;
-                	month = 11;
-                }  
-            }else{  
-            	month = 12+monthNow-monthBirth;
-                age--;  
-            }  
-        }else {
-        	month = monthNow - monthBirth;
-        	if (dayOfMonthNow < dayOfMonthBirth) {
-        		month--;
-            }  
-        }  
-        return age+"岁"+month+"月";  
-    }  
+
+    public static long javaTimestamp(long time) {
+        if (time <= 0) {
+            log.error("javaTimestamp meet null argument.");
+            throw new IllegalArgumentException("argument is null.");
+        }
+        //mysql 时间戳只有10位，只精确到秒，而Java时间戳精确到毫秒，故要做处理
+        String dateline = String.valueOf(time);
+        dateline = dateline.substring(0, 10);
+        return Long.parseLong(dateline);
+    }
     
     /**
      * 根据TradeNo获取平台订单号
