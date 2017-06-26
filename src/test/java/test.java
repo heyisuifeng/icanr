@@ -10,8 +10,8 @@ public class test {
         /*long day = DateTimeUtils.getBetweenDays("2017-02-01","2017-02-02");
         System.out.println(day);*/
 
-        Date date = DateTimeUtils.string2Date("2017-06-24","yyyy-MM-dd");
-        date = DateTimeUtils.getWeekFirstDaySun(date);
+        Date date = DateTimeUtils.string2Date("2016-02-28","yyyy-MM-dd");
+         date = DateTimeUtils.getMonthLastDate(date);
         System.out.println(DateTimeUtils.date2String(date,"yyyy-MM-dd"));
 
     }

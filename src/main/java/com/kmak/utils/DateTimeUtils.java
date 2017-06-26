@@ -90,8 +90,8 @@ public class DateTimeUtils {
     public static String date2String(Date date, String format){
         if (date == null){
             //如果时间传空，取当前时间
-            //throw new IllegalArgumentException("日期不能为空");
-            date = new Date();
+            throw new IllegalArgumentException("参数日期不能为空");
+            //date = new Date();
         }
         if (format == null || "".equals(format)){
             format = "yyyy-MM-dd HH:mm:ss";
@@ -338,6 +338,10 @@ public class DateTimeUtils {
      * @return
      */
     public static int getWeekOfDate(Date date){
+        if (date == null){
+            log.error("参数为空");
+            throw new IllegalArgumentException("方法调用失败，参数不能为空");
+        }
         int [] weeks = {7,1,2,3,4,5,6};
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -349,13 +353,18 @@ public class DateTimeUtils {
     }
 
     /**
-     * 当前时间加几天
-     * @param nowDate
+     * 在给定的时间上增减天数
+     * @param date
+     * @param num
      * @return
      */
-    public static final Date getFutureDate(Date nowDate,int num){
+    public static Date getFutureDate(Date date,int num){
+        if (date == null){
+            log.error("参数为空");
+            throw new IllegalArgumentException("方法调用失败，参数不能为空");
+        }
         Calendar cal = Calendar.getInstance();
-        cal.setTime(nowDate);
+        cal.setTime(date);
         cal.add(Calendar.DATE,num);
         return cal.getTime();
     }
@@ -366,9 +375,45 @@ public class DateTimeUtils {
      * @param num “7”
      * @return “2017-07-08”
      */
-    public static final String getFutureDateString(String date,int num){
+    public static String getFutureDateString(String date,int num){
         Date dt = string2Date(date,"yyyy-MM-dd");
         dt = getFutureDate(dt,num);
         return date2String(dt,"yyyy-MM-dd");
     }
+
+    /**
+     * 获取本月第一天日期
+     * @param date
+     * @return
+     */
+    public static Date getMonthFirstDate(Date date){
+        if (date == null){
+            log.error("参数为空");
+            throw new IllegalArgumentException("方法调用失败，参数不能为空");
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH,1);
+        return cal.getTime();
+    }
+
+    /**
+     * 获取本月最后一天日期
+     * @param date
+     * @return
+     */
+    public static Date getMonthLastDate(Date date){
+        if (date == null){
+            log.error("参数为空");
+            throw new IllegalArgumentException("方法调用失败，参数不能为空");
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        //加1 变为下个月份
+        cal.add(Calendar.MONTH,1);
+        //参数为1时获取的本月第一天，为0获取的上个月的第一天
+        cal.set(Calendar.DAY_OF_MONTH,0);
+        return cal.getTime();
+    }
+
 }

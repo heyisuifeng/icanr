@@ -146,7 +146,7 @@ public class CommonUtils {
         dateline = dateline.substring(0, 10);
         return Long.parseLong(dateline);
     }
-    
+
     /**
      * 根据TradeNo获取平台订单号
      *
