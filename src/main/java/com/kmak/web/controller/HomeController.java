@@ -45,4 +45,8 @@ public class HomeController {
         BeanUtils.copyProperties(book,book1);
     }
 
+    @RequestMapping(value = "/ueditor")
+    public String ueditor(){
+        return "ueditor";
+    }
 }
