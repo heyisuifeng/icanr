@@ -2,6 +2,7 @@ package com.kmak.web.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,16 +33,10 @@ public class UeditorController {
     public Map<String, Object> images (MultipartFile upfile, HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> params = new HashMap<String, Object>();
         try{
-            String basePath = LoadPropertiesDataUtils.getValue("lyz.uploading.url");
-            String visitUrl = LoadPropertiesDataUtils.getValue("lyz.visit.url");
-            if(basePath == null || "".equals(basePath)){
-                basePath = "d:/lyz/static";  //与properties文件中lyz.uploading.url相同，未读取到文件数据时为basePath赋默认值
-            }
-            if(visitUrl == null || "".equals(visitUrl)){
-                visitUrl = "/upload/"; //与properties文件中lyz.visit.url相同，未读取到文件数据时为visitUrl赋默认值
-            }
-            String ext = StringUtils.getExt(upfile.getOriginalFilename());
-            String fileName = String.valueOf(System.currentTimeMillis()).concat("_").concat(RandomUtils.getRandom(6)).concat(".").concat(ext);
+            String basePath = "d:/lyz/static";
+            String visitUrl = "/upload/";
+            String ext = upfile.getOriginalFilename().substring(upfile.getOriginalFilename().indexOf("."));
+            String fileName = String.valueOf(System.currentTimeMillis()).concat("_").concat(ext);
             StringBuilder sb = new StringBuilder();
             //拼接保存路径
             sb.append(basePath).append("/").append(fileName);
@@ -60,4 +57,5 @@ public class UeditorController {
         }
         return params;
     }
+
 }

@@ -29,7 +29,7 @@
     <h1>demo</h1>
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
     <script type="text/javascript">
-
+        var basePath = "${pageContext.request.contextPath}";
         //实例化编辑器
         //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
         var ue = UE.getEditor('editor');
@@ -37,7 +37,7 @@
         UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
         UE.Editor.prototype.getActionUrl = function(action){
             if(action == '/upload/image'){
-                return basePath+'/upload/image';
+                return basePath + '/upload/image';
             }else{
                 return this._bkGetActionUrl.call(this, action);
             }
