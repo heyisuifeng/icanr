@@ -3,9 +3,12 @@ package com.kmak.utils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Leaf.Ye on 2017/6/23.
@@ -416,4 +419,24 @@ public class DateTimeUtils {
         return cal.getTime();
     }
 
+    /**
+     * 传入时间参数获取年月日周等信息
+     * @param date
+     * @return
+     */
+    public static Map<String,Object> getDateTimeMsg(Date date){
+        if (date == null){
+            log.error("参数为空");
+            throw new IllegalArgumentException("方法调用失败，参数不能为空");
+        }
+        Map<String,Object> map = new HashMap();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        //年份
+        map.put("year",cal.get(Calendar.YEAR));
+        map.put("month",cal.get(Calendar.MONTH)+1);
+        map.put("day",cal.get(Calendar.DAY_OF_MONTH));
+        map.put("week",cal.get(Calendar.WEEK_OF_YEAR));
+        return map;
+    }
 }

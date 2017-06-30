@@ -22,7 +22,8 @@ public class test {
         /*Date date = DateTimeUtils.string2Date("2016-02-28","yyyy-MM-dd");
          date = DateTimeUtils.getMonthLastDate(date);
         System.out.println(DateTimeUtils.date2String(date,"yyyy-MM-dd"));*/
-        getBB();
+        //getBB();
+        DateTimeUtils.getDateTimeMsg(new Date());
 
     }
 
