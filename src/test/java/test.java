@@ -23,7 +23,7 @@ public class test {
          date = DateTimeUtils.getMonthLastDate(date);
         System.out.println(DateTimeUtils.date2String(date,"yyyy-MM-dd"));*/
         //getBB();
-        DateTimeUtils.getDateTimeMsg(new Date());
+        //DateTimeUtils.getDateTimeMsg(new Date());
 
     }
 

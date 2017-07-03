@@ -4,10 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +27,10 @@ public class UeditorController {
 
     @RequestMapping(value = "/upload/image")
     @ResponseBody
-    public Map<String, Object> images (MultipartFile upfile, HttpServletRequest request, HttpServletResponse response){
+    public Map<String, Object> images (@RequestParam MultipartFile upfile, HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> params = new HashMap<String, Object>();
         try{
-            String basePath = "d:/lyz/static";
+            String basePath = "d:/baidu/ueditor";
             String visitUrl = "/upload/";
             String ext = upfile.getOriginalFilename().substring(upfile.getOriginalFilename().indexOf("."));
             String fileName = String.valueOf(System.currentTimeMillis()).concat("_").concat(ext);

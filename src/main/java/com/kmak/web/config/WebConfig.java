@@ -2,16 +2,25 @@ package com.kmak.web.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.core.Ordered;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Leaf.Ye on 2017/3/6.
@@ -42,6 +51,61 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         resourceViewResolver.setPrefix("/WEB-INF/views/");
         resourceViewResolver.setSuffix(".jsp");
         return resourceViewResolver;
+    }
+
+    /**
+     * 文件上传下载解析器
+     * @return
+     */
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+        commonsMultipartResolver.setDefaultEncoding("utf-8");
+        //500M，这里单位是b 524288000b = (500M*1024)*1024
+        commonsMultipartResolver.setMaxUploadSize(524288000);
+        //40k
+        commonsMultipartResolver.setMaxInMemorySize(40960);
+        return commonsMultipartResolver;
+    }
+
+    /**
+     * 消息转换器，spring默认注册了以下转换器，但是为了让json转换器使用自定义的日期格式，需要重新配置
+     * @return
+     */
+    private List<HttpMessageConverter<?>> createMessageConverters(){
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
+
+        //文本消息转换器
+        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
+        stringConverter.setWriteAcceptCharset(false);
+        //文本消息转换器所支持的文本类型
+        ArrayList<MediaType> textTypes = new ArrayList<>();
+        //原生格式
+        textTypes.add(MediaType.TEXT_PLAIN);
+        //HTML格式
+        textTypes.add(MediaType.TEXT_HTML);
+        //以us-ascii编码XML的内容
+        textTypes.add(MediaType.TEXT_XML);
+        //以指定字符集编码的xml内容
+        textTypes.add(MediaType.APPLICATION_XML);
+        stringConverter.setSupportedMediaTypes(textTypes);
+        converters.add(stringConverter);
+
+        //JSON 消息转换器
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        ArrayList<MediaType> jsonTextTypes = new ArrayList<>();
+        jsonTextTypes.add(MediaType.TEXT_HTML);
+        jsonTextTypes.add(MediaType.APPLICATION_JSON);
+        jsonConverter.setSupportedMediaTypes(jsonTextTypes);
+        converters.add(jsonConverter);
+        return converters;
+    }
+
+    @Bean
+    public RequestMappingHandlerAdapter requestMappingHandlerAdapter(){
+        RequestMappingHandlerAdapter handlerAdapter = new RequestMappingHandlerAdapter();
+        handlerAdapter.setMessageConverters(createMessageConverters());
+        return handlerAdapter;
     }
 
     //Spring 可以有两种方式处理静态文件：
