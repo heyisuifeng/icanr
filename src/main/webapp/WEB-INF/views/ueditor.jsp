@@ -47,6 +47,10 @@
         }
 
         $("input").click(function () {
+            alert(UE.getEditor('editor').getContent());
+            //纯文本取值
+            alert(UE.getEditor('editor').getContentTxt());
+            //带格式取值
             alert(UE.getEditor('editor').getPlainTxt());
         });
     </script>
