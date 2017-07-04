@@ -28,6 +28,8 @@
 <body>
     <h1>demo</h1>
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+    <input type="button">
+    <script src="${ctx}/assets/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         var basePath = "${pageContext.request.contextPath}";
         //实例化编辑器
@@ -43,6 +45,10 @@
                 return this._bkGetActionUrl.call(this, action);
             }
         }
+
+        $("input").click(function () {
+            alert(UE.getEditor('editor').getPlainTxt());
+        });
     </script>
 </body>
 </html>
