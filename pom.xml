@@ -11,6 +11,8 @@
   <properties>
     <!-- lombok -->
     <lombok.version>1.16.4</lombok.version>
+
+    <fasterxml-jackson.version>2.6.3</fasterxml-jackson.version>
   </properties>
 
   <dependencies>
@@ -225,6 +227,28 @@
       <groupId>org</groupId>
       <artifactId>jaudiotagger</artifactId>
       <version>2.0.3</version>
+    </dependency>
+
+    <!-- Json 支持 -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20140107</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${fasterxml-jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${fasterxml-jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${fasterxml-jackson.version}</version>
     </dependency>
   </dependencies>
 

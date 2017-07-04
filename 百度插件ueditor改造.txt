@@ -1,0 +1,14 @@
+百度插件ueditor改造成上传到自己想保存的路径和图片下载地址
+1、在相应的js文件中找到config.json配置文件，将其中的"imageActionName":属性改为自己文件的上传地址；
+2、实例化的时候加上一下js代码
+var ue = UE.getEditor('editor');
+
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action){
+            //这里必须是自己的上传地址和第一点的地址一致
+            if(action == '/upload/image'){
+                return basePath + '/upload/image';
+            }else{
+                return this._bkGetActionUrl.call(this, action);
+            }
+        }

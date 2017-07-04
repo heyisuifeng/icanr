@@ -21,7 +21,7 @@ public class HomeController {
     @Autowired
     LoginService loginService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(){
         return "index";
     }

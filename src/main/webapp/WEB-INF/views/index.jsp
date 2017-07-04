@@ -1,3 +1,8 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
+<!DOCTYPE html>
 <html>
 <body>
 <h2>Hello World!</h2>
@@ -17,5 +22,6 @@
     </form>
 </div>
 </body>
-<script src="assets/js/self/user.js"/>
+<script src="${ctx}/assets/js/jquery-1.10.2.min.js"></script>
+<script src="${ctx}/assets/js/self/user.js"></script>
 </html>

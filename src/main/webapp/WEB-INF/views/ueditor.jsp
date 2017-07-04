@@ -36,6 +36,7 @@
 
         UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
         UE.Editor.prototype.getActionUrl = function(action){
+            //这里必须是自己的上传地址
             if(action == '/upload/image'){
                 return basePath + '/upload/image';
             }else{
