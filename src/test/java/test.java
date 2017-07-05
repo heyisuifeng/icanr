@@ -24,7 +24,46 @@ public class test {
         System.out.println(DateTimeUtils.date2String(date,"yyyy-MM-dd"));*/
         //getBB();
         //DateTimeUtils.getDateTimeMsg(new Date());
+        //杨辉三角
+        /*int b [][]  = new int[10][10];
+        test test = new test();
+        b = test.getInt(6,b);
+        for (int i=0;i<10;i++){
+            for (int j=0;j<10;j++){
+                System.out.print(b[i][j]+" ");
+            }
+            System.out.println();
+        }*/
 
+        /*int [] a = new int[4];
+        int p =1;
+        for (int i=1;i<=3;i++){
+            for (int j=1;j<=i;j++){
+                int current =a[j];
+                a[j] = p+current;
+                p = current;
+            }
+        }*/
+    }
+
+    public int [][] getInt(int n,int a [][]){
+        if (n==1){
+            a[0][1]=1;
+            return a;
+        }else if (n==2){
+            a[0][1]=1;
+            a[1][1]=1;
+            a[1][2]=2;
+            a[1][3]=1;
+            return a;
+        }else{
+            a = getInt(n-1,a);
+            int k = n+1;
+            for (int i=0;i<=k;i++){
+                a[n-1][i+1] = a[n-2][i]+a[n-2][i+1];
+            }
+            return a;
+        }
     }
 
     public static void getAA() throws IOException, UnsupportedAudioFileException {
